@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Check Khodam</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            background: url('https://i.ibb.co.com/CBzrsPM/images-3.jpg') no-repeat center center fixed;
+            background-size: cover;
+            color: #fff;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .container {
+            background-color: rgba(0, 0, 0, 0.7);
+            padding: 30px;
+            border-radius: 10px;
+            max-width: 400px;
+            width: 100%;
+        }
+
+        h1 {
+            color: #007bff;
+        }
+
+        #result {
+            display: none;
+            padding: 20px;
+            margin-top: 20px;
+            border: 1px solid #007bff;
+            border-radius: 5px;
+            background-color: rgba(255, 255, 255, 0.2);
+        }
+
+        #result.visible {
+            display: block;
+        }
+
+        #loading {
+            display: none;
+        }
+
+        #loading.visible {
+            display: block;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1 class="text-center">Check Khodam</h1>
+        <form id="khodamForm" class="mt-4">
+            <div class="form-group">
+                <label for="name">Nama:</label>
+                <input type="text" class="form-control" id="name" required>
+            </div>
+            <button type="submit" class="btn btn-primary btn-block">Check Khodam</button>
+        </form>
+        <div id="loading" class="text-center mt-4">
+            <div class="spinner-border text-primary" role="status">
+                <span class="sr-only">Loading...</span>
+            </div>
+        </div>
+        <div id="result" class="mt-4"></div>
+    </div>
+    <script>
+        document.getElementById('khodamForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+            const name = document.getElementById('name').value;
+            const resultDiv = document.getElementById('result');
+            const loadingDiv = document.getElementById('loading');
+            
+            if(name) {
+                loadingDiv.classList.add('visible');
+                resultDiv.classList.remove('visible');
+                
+                // Simulate a delay for loading
+                setTimeout(() => {
+                    const khodam = checkKhodam(name);
+                    resultDiv.innerHTML = `<h3>Khodam untuk nama "${name}":</h3><h5>${khodam}</h5>`;
+                    loadingDiv.classList.remove('visible');
+                    resultDiv.classList.add('visible');
+                }, 2000); // Simulasi delay 2 detik
+            } else {
+                resultDiv.innerHTML = `<p class="text-danger">Nama tidak boleh kosong!</p>`;
+                resultDiv.classList.add('visible');
+            }
+        });
+
+        function checkKhodam(name) {
+            const khodams = [
+                'Rawa Rontek', 'Sapi Qurban', 'Ular Depresi', 'Sapi Uncle Motoo', 
+                'Kuntilanak', 'Harimau Putih', 'Ular Naga', 'Jin Arab', 'Gendruwo',
+                'Buto Ijo', 'Nyai Roro Kidul', 'Jenglot', 'Pocong', 'Wewe Gombel', 
+                'Genderuwo', 'Banaspati', 'Tuyul', 'Kuyang', 'Demit', 'Siluman Harimau',
+                'Siluman Ular', 'Nyi Blorong', 'Eyang Semar', 'Eyang Panji', 'Eyang Sabdo Palon'
+            ];
+            const index = Math.floor(Math.random() * khodams.length);
+            return khodams[index];
+        }
+    </script>
+</body>
+</html>
